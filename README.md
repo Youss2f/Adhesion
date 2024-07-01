@@ -1,254 +1,160 @@
 # FM6 Private Institution Membership Portal
 
-A comprehensive web application for managing membership applications from private training institutions to the Mohammed VI Foundation for the Promotion of Social Works in Education and Training (FM6).
+A comprehensive web application for managing membership applications from private educational institutions. Built with Spring Boot, JWT authentication, and modern web technologies.
 
-## 🎯 Project Overview
+## �� Project Overview
 
 This application digitizes and streamlines the entire membership application process for private training institutions, providing a centralized portal for institutions to submit and track their applications, and for FM6 administrators to manage and process these requests efficiently.
 
-## 🏗️ Architecture
-
-The application follows a **3-Tier Client-Server Architecture**:
-
-- **Frontend**: Angular 18 (TypeScript, HTML5, CSS3)
-- **Backend**: Spring Boot 3.3.1 (Java 17)
-- **Database**: Microsoft SQL Server
-- **Authentication**: JWT (JSON Web Tokens)
-
 ## 🚀 Features
 
-### For Institution Representatives
-- ✅ User registration and authentication
-- ✅ Submit membership applications with required documents
-- ✅ Track application status in real-time
-- ✅ View application history
-- ✅ Receive email notifications on status changes
+- **User Authentication & Authorization**
+  - JWT-based authentication
+  - Role-based access control (Administrator, Institution Representative)
+  - Secure password handling
 
-### For Foundation Administrators
-- ✅ Secure admin dashboard
-- ✅ Review and manage all applications
-- ✅ Approve or reject applications with notes
-- ✅ Filter applications by status
-- ✅ View application statistics
-- ✅ Manage user accounts
+- **Application Management**
+  - Submit membership applications
+  - Track application status
+  - Document upload and management
+  - Application review and approval workflow
+
+- **Institution Management**
+  - Institution profile management
+  - Contact information updates
+  - Document repository
+
+- **Administrative Features**
+  - Dashboard for administrators
+  - Application review and approval
+  - User management
+  - System monitoring
+
+## 🛠️ Technology Stack
+
+### Backend
+- **Spring Boot 3.3.1** - Main framework
+- **Spring Security** - Authentication and authorization
+- **Spring Data JPA** - Data persistence
+- **Hibernate** - ORM framework
+- **JWT** - Token-based authentication
+- **Maven** - Build tool
+
+### Database
+- **H2 Database** - Development (in-memory)
+- **SQL Server** - Production ready
+
+### Frontend (Planned)
+- **Angular** - Frontend framework
+- **Bootstrap** - UI components
+- **TypeScript** - Programming language
 
 ## 📋 Prerequisites
 
-Before running this application, ensure you have the following installed:
+- Java 17 or higher
+- Maven 3.6+
+- SQL Server (for production)
+- Node.js (for frontend development)
 
-- **Java 17** or higher
-- **Node.js 18** or higher
-- **Angular CLI 18**
-- **Microsoft SQL Server** (or SQL Server Express)
-- **Maven 3.6** or higher
+## 🚀 Quick Start
 
-## 🛠️ Installation & Setup
+### Backend Setup
 
-### 1. Database Setup
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Youss2f/Adhesion.git
+   cd Adhesion
+   ```
 
-1. Install Microsoft SQL Server
-2. Create a new database named `fm6_adhesion_db`
-3. Update database credentials in `adhesion/src/main/resources/application.properties`
+2. **Configure database**
+   - For development: H2 database is configured by default
+   - For production: Update `application.properties` with SQL Server credentials
 
-### 2. Backend Setup
+3. **Run the application**
+   ```bash
+   mvn spring-boot:run
+   ```
 
-```bash
-# Navigate to the backend directory
-cd adhesion
+4. **Access the application**
+   - API Base URL: `http://localhost:8080/api`
+   - H2 Console: `http://localhost:8080/api/h2-console`
+   - Health Check: `http://localhost:8080/api/health`
 
-# Install dependencies
-mvn clean install
+### Default Credentials
 
-# Run the application
-mvn spring-boot:run
-```
+- **Administrator**
+  - Email: `admin@fm6education.ma`
+  - Password: `admin123`
 
-The backend will start on `http://localhost:8080`
+- **Institution Representative**
+  - Email: `institution@example.com`
+  - Password: `password123`
 
-### 3. Frontend Setup
+## 📚 API Documentation
 
-```bash
-# Navigate to the frontend directory
-cd adhesion-frontend
-
-# Install dependencies
-npm install
-
-# Start the development server
-ng serve
-```
-
-The frontend will start on `http://localhost:4200`
-
-## 📁 Project Structure
-
-```
-adhesion/                          # Backend (Spring Boot)
-├── src/main/java/ma/fm6education/adhesion/
-│   ├── config/                   # Configuration classes
-│   ├── controller/               # REST API controllers
-│   ├── dto/                      # Data Transfer Objects
-│   ├── entity/                   # JPA entities
-│   ├── repository/               # Data access layer
-│   ├── security/                 # Security configuration
-│   └── service/                  # Business logic layer
-├── src/main/resources/
-│   └── application.properties    # Application configuration
-└── pom.xml                       # Maven dependencies
-
-adhesion-frontend/                # Frontend (Angular)
-├── src/app/
-│   ├── components/               # Angular components
-│   ├── services/                 # Angular services
-│   ├── models/                   # TypeScript interfaces
-│   └── guards/                   # Route guards
-├── src/assets/                   # Static assets
-└── package.json                  # Node.js dependencies
-```
-
-## 🔐 Security Features
-
-- **JWT Authentication**: Secure token-based authentication
-- **Password Hashing**: BCrypt password encryption
-- **Role-based Access Control**: Different permissions for users and admins
-- **CORS Configuration**: Secure cross-origin requests
-- **Input Validation**: Comprehensive data validation
-
-## 📊 API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - User registration
+### Authentication Endpoints
 - `POST /api/auth/login` - User login
-- `POST /api/auth/logout` - User logout
-- `GET /api/auth/validate` - Token validation
+- `POST /api/auth/register` - User registration
+- `GET /api/auth/me` - Get current user info
 
-### Applications
-- `POST /api/applications` - Submit new application
-- `GET /api/applications/my-applications` - Get user's applications
-- `GET /api/applications/{id}` - Get specific application
-- `GET /api/applications/admin/all` - Get all applications (admin)
-- `PUT /api/applications/{id}/approve` - Approve application (admin)
-- `PUT /api/applications/{id}/reject` - Reject application (admin)
-- `GET /api/applications/admin/stats` - Get application statistics (admin)
+### Application Endpoints
+- `GET /api/applications` - List applications
+- `POST /api/applications` - Submit application
+- `GET /api/applications/{id}` - Get application details
+- `PUT /api/applications/{id}` - Update application
+- `DELETE /api/applications/{id}` - Delete application
 
-## 🗄️ Database Schema
-
-### Users Table
-- `id` (Primary Key)
-- `email` (Unique)
-- `password` (Hashed)
-- `full_name`
-- `role` (INSTITUTION_REPRESENTATIVE, ADMINISTRATOR)
-- `institution_name`
-- `institution_address`
-- `phone_number`
-- `is_active`
-- `created_at`
-- `updated_at`
-
-### Applications Table
-- `id` (Primary Key)
-- `user_id` (Foreign Key)
-- `establishment_name`
-- `establishment_address`
-- `contact_person_name`
-- `contact_email`
-- `contact_phone`
-- `establishment_type`
-- `number_of_employees`
-- `years_of_operation`
-- `business_license_number`
-- `tax_registration_number`
-- `status` (EN_ATTENTE, VALIDEE, REJETEE)
-- `submission_date`
-- `review_date`
-- `review_notes`
-
-### Documents Table
-- `id` (Primary Key)
-- `application_id` (Foreign Key)
-- `document_name`
-- `file_name`
-- `file_path`
-- `file_size`
-- `content_type`
-- `document_type`
-- `upload_date`
-
-## 🧪 Testing
-
-### Backend Testing
-```bash
-cd adhesion
-mvn test
-```
-
-### Frontend Testing
-```bash
-cd adhesion-frontend
-ng test
-```
-
-## 🚀 Deployment
-
-### Production Build
-
-#### Backend
-```bash
-cd adhesion
-mvn clean package
-java -jar target/adhesion-0.0.1-SNAPSHOT.jar
-```
-
-#### Frontend
-```bash
-cd adhesion-frontend
-ng build --configuration production
-```
+### User Management
+- `GET /api/users` - List users (Admin only)
+- `GET /api/users/{id}` - Get user details
+- `PUT /api/users/{id}` - Update user
+- `DELETE /api/users/{id}` - Delete user
 
 ## 🔧 Configuration
 
-### Environment Variables
-
-Create a `.env` file in the backend directory:
-
+### Database Configuration
 ```properties
-# Database
-DB_URL=jdbc:sqlserver://localhost:1433;databaseName=fm6_adhesion_db
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+# Development (H2)
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
 
-# JWT
-JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRATION=86400000
-
-# Email (for future use)
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=your_email@gmail.com
-MAIL_PASSWORD=your_app_password
+# Production (SQL Server)
+spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=fm6_adhesion_db
+spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ```
 
-## 📝 API Documentation
+### JWT Configuration
+```properties
+jwt.secret=FM6EducationSecretKey2024ForJWTTokenGenerationAndValidation
+jwt.expiration=86400000
+```
 
-### Authentication Flow
+## 🏗️ Project Structure
 
-1. **Registration**: User registers with institution details
-2. **Login**: User logs in and receives JWT token
-3. **Token Usage**: Include token in Authorization header for protected endpoints
-4. **Token Validation**: Server validates token on each request
+```
+src/main/java/ma/fm6education/adhesion/
+├── config/          # Configuration classes
+├── controller/      # REST controllers
+├── dto/            # Data Transfer Objects
+├── entity/         # JPA entities
+├── exception/      # Exception handling
+├── repository/     # Data access layer
+├── security/       # Security configuration
+└── service/        # Business logic
+```
 
-### Application Status Flow
+## 🧪 Testing
 
-1. **EN_ATTENTE** (Pending): Initial status when application is submitted
-2. **VALIDEE** (Approved): Application approved by administrator
-3. **REJETEE** (Rejected): Application rejected by administrator
+Run tests with Maven:
+```bash
+mvn test
+```
 
-## 🤝 Contributing
+## 📝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
@@ -258,28 +164,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **ATERTOUR Youssef** - *Initial work* - [GitHub Profile]
+- **Youssef** - *Initial work* - [Youss2f](https://github.com/Youss2f)
 
 ## 🙏 Acknowledgments
 
-- Mohammed VI Foundation for the Promotion of Social Works in Education and Training (FM6)
 - Spring Boot team for the excellent framework
-- Angular team for the powerful frontend framework
+- FM6 Education for the project requirements
+- All contributors and reviewers
 
 ## 📞 Support
 
-For support and questions, please contact:
-- Email: support@fm6education.ma
-- Phone: +212-XXX-XXXXXX
-
-## 🔄 Version History
-
-- **v1.0.0** - Initial release with core functionality
-  - User authentication and registration
-  - Application submission and management
-  - Admin dashboard
-  - JWT security implementation
+For support, email youssef.atertour.2@gmail.com or create an issue in this repository.
 
 ---
 
-**Note**: This application is designed for the specific needs of FM6 and private training institutions in Morocco. Please ensure compliance with local data protection regulations and institutional policies. # Adhesion
+**Built with ❤️ for FM6 Education**
