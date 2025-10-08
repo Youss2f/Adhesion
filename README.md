@@ -5,7 +5,18 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Youss2f_Adhesion&metric=security_rating)](https://sonarcloud.io/dashboard?id=Youss2f_Adhesion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive web application for managing private institution membership applications to FM6 (Fédération Marocaine des Écoles Privées - 6e Région).
+A comprehensive web application for managing private training institution membership applications to **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation**.
+
+## 🎯 Project Context
+
+The **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation** ([FM6 Education](https://www.fm6education.ma/)) is expanding its social services beyond traditional public sector education personnel to include employees of private training institutions. This strategic expansion requires a technological solution to efficiently manage the increased operational complexity.
+
+### 🚀 Strategic Objectives
+- **Digitalize** the membership application process for private institutions
+- **Automate** administrative workflows to improve efficiency  
+- **Modernize** service delivery with a user-friendly platform
+- **Ensure** secure handling of institutional and personal data
+- **Streamline** application tracking and status management
 
 ## 🌟 Features
 
@@ -38,7 +49,7 @@ A comprehensive web application for managing private institution membership appl
 ### Backend (Spring Boot)
 - **Framework:** Spring Boot 3.2.0 with Java 17
 - **Security:** Spring Security + JWT
-- **Database:** JPA/Hibernate with PostgreSQL
+- **Database:** JPA/Hibernate with SQL Server
 - **API:** RESTful services with OpenAPI 3.0
 - **Testing:** JUnit 5 + Mockito + Testcontainers
 
@@ -61,7 +72,7 @@ A comprehensive web application for managing private institution membership appl
 - **Java 17+**
 - **Node.js 18+**
 - **Docker & Docker Compose**
-- **PostgreSQL 15+** (or use Docker)
+- **SQL Server 2019+** (or use Docker)
 
 ### 1. Clone the Repository
 ```bash
@@ -174,7 +185,7 @@ docker-compose -f docker-compose.prod.yml up -d
 ### Environment Variables
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string | `jdbc:postgresql://localhost:5432/membership` |
+| `DATABASE_URL` | SQL Server connection string | `jdbc:sqlserver://localhost:1433;databaseName=membership` |
 | `JWT_SECRET` | Secret key for JWT tokens | `mySecretKey` |
 | `JWT_EXPIRATION` | Token expiration time (seconds) | `86400` |
 | `EMAIL_HOST` | SMTP server host | `localhost` |
@@ -224,14 +235,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **FM6** for the opportunity to digitize their membership process
+- **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation** for the opportunity to digitize their membership process
 - **Spring Boot** and **Angular** communities for excellent frameworks
 - **Open Source** contributors who make projects like this possible
 
 ---
 
 <div align="center">
-  <p>Built with ❤️ for FM6 Private Institution Community</p>
+  <p>Built with ❤️ for Fondation Mohammed VI Education-Formation Community</p>
   <p>
     <a href="https://github.com/Youss2f/Adhesion">🌟 Star this repo</a> •
     <a href="https://github.com/Youss2f/Adhesion/issues">🐛 Report Bug</a> •

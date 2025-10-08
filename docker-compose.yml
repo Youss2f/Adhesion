@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:15-alpine
-    container_name: fm6-postgres
+  # SQL Server Database
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: fm6-sqlserver
     environment:
-      POSTGRES_DB: membership_portal
-      POSTGRES_USER: fm6_user
-      POSTGRES_PASSWORD: fm6_password
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
     ports:
-      - "5432:5432"
+      - "1433:1433"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - sqlserver_data:/var/opt/mssql
       - ./backend/src/main/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - fm6-network
@@ -25,15 +25,15 @@ services:
     container_name: fm6-backend
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/membership_portal
-      - SPRING_DATASOURCE_USERNAME=fm6_user
-      - SPRING_DATASOURCE_PASSWORD=fm6_password
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://sqlserver:1433;databaseName=membership_portal;encrypt=false;trustServerCertificate=true
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=YourStrong@Passw0rd
       - JWT_SECRET=mySecretKey
       - JWT_EXPIRATION=86400
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - sqlserver
     networks:
       - fm6-network
     healthcheck:
@@ -51,7 +51,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - backend
+      - sqlserver
     networks:
       - fm6-network
     healthcheck:
@@ -73,7 +73,7 @@ services:
       - redis_data:/data
 
 volumes:
-  postgres_data:
+  sqlserver_data:
   redis_data:
 
 networks:

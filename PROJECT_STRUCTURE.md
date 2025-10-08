@@ -1,4 +1,11 @@
-# FM6 Private Institution Membership Portal - Project Structure
+# Fondation Mohammed VI Membership Portal - Project Structure
+
+## Overview
+
+This project is a comprehensive web application developed for **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation** to digitalize and streamline the membership application process for private training institutions.
+
+### Mission Context
+The Foundation is expanding its social services beyond public sector education personnel to include employees of private training institutions. This expansion necessitates a modern, secure, and efficient digital platform to handle the increased operational complexity.
 
 ## Root Directory Structure
 ```
@@ -10,7 +17,7 @@ fm6-membership-portal/
 │   │   │   │   └── ma/
 │   │   │   │       └── fm6/
 │   │   │   │           └── membership/
-│   │   │   │               ├── Fm6MembershipApplication.java
+│   │   │   │               ├── MembershipPortalApplication.java
 │   │   │   │               ├── config/
 │   │   │   │               │   ├── SecurityConfig.java
 │   │   │   │               │   ├── JwtConfig.java

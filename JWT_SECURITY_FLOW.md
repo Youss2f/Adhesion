@@ -1,7 +1,7 @@
-# JWT Security Flow and Integration - FM6 Membership Portal
+# JWT Security Flow and Integration - Fondation Mohammed VI Membership Portal
 
 ## Overview
-The FM6 Membership Portal implements a comprehensive JWT-based authentication and authorization system that ensures secure communication between the Angular frontend and Spring Boot backend.
+The Fondation Mohammed VI Membership Portal implements a comprehensive JWT-based authentication and authorization system that ensures secure communication between the Angular frontend and Spring Boot backend.
 
 ## 1. JWT Flow Architecture
 
