@@ -1,0 +1,269 @@
+<div class="container-fluid mt-4">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col">
+      <h2>
+        <i class="fas fa-tachometer-alt me-2"></i>
+        Tableau de Bord Administrateur
+      </h2>
+      <p class="text-muted">Gestion des demandes d'adhésion à la Fondation Mohammed VI</p>
+    </div>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+              <h4 class="mb-0">{{ totalApplications }}</h4>
+              <p class="mb-0">Total des demandes</p>
+            </div>
+            <div class="flex-shrink-0">
+              <i class="fas fa-file-alt fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-warning text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+              <h4 class="mb-0">{{ pendingCount }}</h4>
+              <p class="mb-0">En attente</p>
+            </div>
+            <div class="flex-shrink-0">
+              <i class="fas fa-clock fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+              <h4 class="mb-0">{{ approvedCount }}</h4>
+              <p class="mb-0">Validées</p>
+            </div>
+            <div class="flex-shrink-0">
+              <i class="fas fa-check-circle fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card bg-danger text-white">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+              <h4 class="mb-0">{{ rejectedCount }}</h4>
+              <p class="mb-0">Rejetées</p>
+            </div>
+            <div class="flex-shrink-0">
+              <i class="fas fa-times-circle fa-2x opacity-75"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters and Search -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="statusFilter" class="form-label">Filtrer par statut:</label>
+          <select 
+            id="statusFilter" 
+            class="form-select" 
+            [(ngModel)]="statusFilter" 
+            (change)="onStatusFilterChange()">
+            <option value="ALL">Tous les statuts</option>
+            <option value="EN_ATTENTE">En attente</option>
+            <option value="VALIDEE">Validées</option>
+            <option value="REJETEE">Rejetées</option>
+          </select>
+        </div>
+        
+        <div class="col-md-8">
+          <label for="searchTerm" class="form-label">Rechercher:</label>
+          <input 
+            type="text" 
+            id="searchTerm"
+            class="form-control" 
+            placeholder="Nom d'établissement, nom du demandeur, détails..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Alert -->
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    {{ error }}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- Applications Table -->
+  <div *ngIf="!isLoading" class="card">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <i class="fas fa-list me-2"></i>
+        Liste des Demandes d'Adhésion
+      </h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="pendingApplications.length === 0" class="text-center text-muted py-4">
+        <i class="fas fa-inbox fa-3x mb-3"></i>
+        <p>Aucune demande trouvée avec les critères sélectionnés.</p>
+      </div>
+
+      <div *ngIf="pendingApplications.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Établissement</th>
+              <th>Demandeur</th>
+              <th>Date de soumission</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let application of pendingApplications">
+              <td>{{ application.id }}</td>
+              <td>{{ application.etablissement?.nom || 'N/A' }}</td>
+              <td>{{ application.user?.prenom }} {{ application.user?.nom }}</td>
+              <td>{{ formatDate(application.dateSoumission) }}</td>
+              <td>
+                <span [class]="getStatusClass(application.statut)">
+                  {{ getStatusDisplayName(application.statut) }}
+                </span>
+              </td>
+              <td>
+                <button 
+                  class="btn btn-sm btn-outline-primary me-2"
+                  (click)="viewApplication(application)">
+                  <i class="fas fa-eye"></i> Voir
+                </button>
+                <button 
+                  *ngIf="application.statut === 'EN_ATTENTE'"
+                  class="btn btn-sm btn-success me-2"
+                  (click)="approveApplication(application.id!)">
+                  <i class="fas fa-check"></i> Valider
+                </button>
+                <button 
+                  *ngIf="application.statut === 'EN_ATTENTE'"
+                  class="btn btn-sm btn-danger"
+                  (click)="rejectApplication(application.id!)">
+                  <i class="fas fa-times"></i> Rejeter
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <nav *ngIf="totalPages > 1" aria-label="Navigation des pages">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <button class="page-link" (click)="changePage(currentPage - 1)">Précédent</button>
+          </li>
+          <li *ngFor="let page of [].constructor(totalPages); let i = index" 
+              class="page-item" 
+              [class.active]="currentPage === i + 1">
+            <button class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <button class="page-link" (click)="changePage(currentPage + 1)">Suivant</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- Application Detail Modal -->
+<div *ngIf="selectedApplication" class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fas fa-file-alt me-2"></i>
+          Détails de la demande #{{ selectedApplication.id }}
+        </h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6><strong>Informations de l'établissement</strong></h6>
+            <p><strong>Nom:</strong> {{ selectedApplication.etablissement?.nom }}</p>
+            <p><strong>Adresse:</strong> {{ selectedApplication.etablissement?.adresse }}</p>
+            <p><strong>Téléphone:</strong> {{ selectedApplication.etablissement?.telephone || 'N/A' }}</p>
+          </div>
+          <div class="col-md-6">
+            <h6><strong>Informations du demandeur</strong></h6>
+            <p><strong>Nom:</strong> {{ selectedApplication.user?.prenom }} {{ selectedApplication.user?.nom }}</p>
+            <p><strong>Email:</strong> {{ selectedApplication.user?.email }}</p>
+            <p><strong>Date de soumission:</strong> {{ formatDate(selectedApplication.dateSoumission) }}</p>
+          </div>
+        </div>
+        
+        <hr>
+        
+        <h6><strong>Détails de la demande</strong></h6>
+        <p class="text-justify">{{ selectedApplication.details }}</p>
+        
+        <div *ngIf="selectedApplication.statut !== 'EN_ATTENTE'">
+          <hr>
+          <h6><strong>Informations de traitement</strong></h6>
+          <p><strong>Statut:</strong> 
+            <span [class]="getStatusClass(selectedApplication.statut)">
+              {{ getStatusDisplayName(selectedApplication.statut) }}
+            </span>
+          </p>
+          <p><strong>Date de traitement:</strong> {{ formatDate(selectedApplication.dateTraitement!) }}</p>
+          <p *ngIf="selectedApplication.commentaireAdmin"><strong>Commentaire:</strong> {{ selectedApplication.commentaireAdmin }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+        <button 
+          *ngIf="selectedApplication.statut === 'EN_ATTENTE'"
+          type="button" 
+          class="btn btn-success me-2"
+          (click)="approveApplication(selectedApplication.id!)">
+          <i class="fas fa-check me-2"></i>Valider
+        </button>
+        <button 
+          *ngIf="selectedApplication.statut === 'EN_ATTENTE'"
+          type="button" 
+          class="btn btn-danger"
+          (click)="rejectApplication(selectedApplication.id!)">
+          <i class="fas fa-times me-2"></i>Rejeter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
