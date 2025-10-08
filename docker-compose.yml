@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: fm6-postgres
+    environment:
+      POSTGRES_DB: membership_portal
+      POSTGRES_USER: fm6_user
+      POSTGRES_PASSWORD: fm6_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/main/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - fm6-network
+
+  # Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fm6-backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/membership_portal
+      - SPRING_DATASOURCE_USERNAME=fm6_user
+      - SPRING_DATASOURCE_PASSWORD=fm6_password
+      - JWT_SECRET=mySecretKey
+      - JWT_EXPIRATION=86400
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - fm6-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fm6-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - fm6-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for Session Management (Optional)
+  redis:
+    image: redis:7-alpine
+    container_name: fm6-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - fm6-network
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  fm6-network:
+    driver: bridge
