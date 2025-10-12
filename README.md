@@ -5,11 +5,11 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Youss2f_Adhesion&metric=security_rating)](https://sonarcloud.io/dashboard?id=Youss2f_Adhesion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A comprehensive web application for managing private training institution membership applications to **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation**.
+A comprehensive web application for managing private education institution membership applications to **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation**.
 
 ## 🎯 Project Context
 
-The **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation** ([FM6 Education](https://www.fm6education.ma/)) is expanding its social services beyond traditional public sector education personnel to include employees of private training institutions. This strategic expansion requires a technological solution to efficiently manage the increased operational complexity.
+The **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation** ([FM6 Education](https://www.fm6education.ma/)) is expanding its social services beyond traditional public sector education personnel to include employees of private education institutions. This strategic expansion requires a technological solution to efficiently manage the increased operational complexity.
 
 ### 🚀 Strategic Objectives
 - **Digitalize** the membership application process for private institutions
