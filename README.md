@@ -1,4 +1,4 @@
-# 🏛️ FM6 Private Institution Membership Portal
+# FM6 Private Institution Membership Portal
 
 [![CI/CD Pipeline](https://github.com/Youss2f/Adhesion/actions/workflows/ci.yml/badge.svg)](https://github.com/Youss2f/Adhesion/actions/workflows/ci.yml)
 [![Code Coverage](https://codecov.io/gh/Youss2f/Adhesion/branch/main/graph/badge.svg)](https://codecov.io/gh/Youss2f/Adhesion)
@@ -7,44 +7,44 @@
 
 A comprehensive web application for managing private education institution membership applications to **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation**.
 
-## 🎯 Project Context
+## Project Context
 
 The **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation** ([FM6 Education](https://www.fm6education.ma/)) is expanding its social services beyond traditional public sector education personnel to include employees of private education institutions. This strategic expansion requires a technological solution to efficiently manage the increased operational complexity.
 
-### 🚀 Strategic Objectives
+### Strategic Objectives
 - **Digitalize** the membership application process for private institutions
 - **Automate** administrative workflows to improve efficiency  
 - **Modernize** service delivery with a user-friendly platform
 - **Ensure** secure handling of institutional and personal data
 - **Streamline** application tracking and status management
 
-## 🌟 Features
+## Features
 
-### 🔐 Authentication & Security
+### Authentication & Security
 - **JWT-based authentication** with Spring Security
 - **Role-based access control** (Admin, User, Moderator)
 - **Secure password encryption** with BCrypt
 - **Token refresh mechanism** for seamless user experience
 
-### 📝 Application Management
+### Application Management
 - **User registration** with email verification
 - **Membership application submission** with document upload
 - **Real-time application status tracking**
 - **Email notifications** for status updates
 
-### 👑 Administrative Features
+### Administrative Features
 - **Application review dashboard** for administrators
 - **Bulk application processing** capabilities
 - **User management** and role assignment
 - **Statistical reporting** and analytics
 
-### 🎨 Modern User Interface
+### Modern User Interface
 - **Responsive design** with Angular Material
 - **Progressive Web App** capabilities
 - **Real-time updates** with WebSocket integration
 - **Multilingual support** (French/Arabic)
 
-## 🏗️ Architecture
+## Architecture
 
 ### Backend (Spring Boot)
 - **Framework:** Spring Boot 3.2.0 with Java 17
@@ -66,7 +66,7 @@ The **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-For
 - **Monitoring:** Actuator + Micrometer metrics
 - **Security:** OWASP dependency scanning
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - **Java 17+**
@@ -116,7 +116,7 @@ npm install
 ng serve
 ```
 
-## 📊 Testing
+## Testing
 
 ### Backend Testing
 ```bash
@@ -140,7 +140,7 @@ npm run e2e                # End-to-end tests
 docker-compose -f docker-compose.test.yml up --abort-on-container-exit
 ```
 
-## 📖 API Documentation
+## API Documentation
 
 The API documentation is available at:
 - **Development:** http://localhost:8080/swagger-ui.html
@@ -155,7 +155,7 @@ POST /api/applications         # Submit new application
 GET  /api/admin/applications   # Admin application management
 ```
 
-## 🛠️ Development
+## Development
 
 ### Code Style
 - **Backend:** Google Java Style Guide
@@ -180,7 +180,7 @@ docker-compose -f docker-compose.prod.yml build
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 | Variable | Description | Default |
@@ -196,7 +196,7 @@ docker-compose -f docker-compose.prod.yml up -d
 - **Testing:** `spring.profiles.active=test`
 - **Production:** `spring.profiles.active=prod`
 
-## 📈 Monitoring & Analytics
+## Monitoring & Analytics
 
 ### Health Checks
 - **Backend:** http://localhost:8080/actuator/health
@@ -208,7 +208,7 @@ docker-compose -f docker-compose.prod.yml up -d
 - **Custom business metrics:** Application KPIs
 - **Infrastructure monitoring:** Docker stats
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
@@ -222,30 +222,6 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 7. Push to the branch (`git push origin feature/amazing-feature`)
 8. Open a Pull Request
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Team
-
-- **Project Lead:** [Youssef](https://github.com/Youss2f)
-- **Backend Development:** Spring Boot Team
-- **Frontend Development:** Angular Team
-- **DevOps & Infrastructure:** Platform Team
-
-## 🙏 Acknowledgments
-
-- **Fondation Mohammed VI de Promotion des Œuvres Sociales de l'Education-Formation** for the opportunity to digitize their membership process
-- **Spring Boot** and **Angular** communities for excellent frameworks
-- **Open Source** contributors who make projects like this possible
-
----
-
-<div align="center">
-  <p>Built with ❤️ for Fondation Mohammed VI Education-Formation Community</p>
-  <p>
-    <a href="https://github.com/Youss2f/Adhesion">🌟 Star this repo</a> •
-    <a href="https://github.com/Youss2f/Adhesion/issues">🐛 Report Bug</a> •
-    <a href="https://github.com/Youss2f/Adhesion/issues">💡 Request Feature</a>
-  </p>
-</div>
+MIT License. See [LICENSE](LICENSE) for details.
